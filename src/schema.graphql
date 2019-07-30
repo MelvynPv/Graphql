@@ -1,0 +1,55 @@
+scalar DateTime
+type Query{
+    saludo(name:String!):String,
+    getUsuario(cNombre:String!):Usuario,
+    getAllEmpresa(cNombreEmpresa:String!):Empresa
+
+}
+
+type Mutation{
+    createUsuario(data:inputUsuario!):Usuario,
+    createEmpresa(data:inputEmpresa!):Empresa
+}
+
+type Empresa {
+    id:ID,
+    cNombreEmpresa:String!,
+    cRFC:String!,
+    cCorreo:String!,
+    cImagen:String,
+    lActivo:Boolean,
+    dtFechaCreacion:DateTime,
+    dtFechaModificacion:DateTime,
+    Usuario:Usuario!
+    
+}
+
+
+input inputEmpresa {
+    cNombreEmpresa:String!,
+    cRFC:String!,
+    cCorreo:String!,
+    cImagen:String,
+    lActivo:Boolean,
+    dtFechaCreacion:DateTime,
+    dtFechaModificacion:DateTime,
+    Usuario:ID
+ 
+}
+
+input inputUsuario{
+    cNombre: String!,
+    cContrasenia: String!,
+    iTipoUsuario: Int!,
+    img:String,
+    dtFechaCreacion:DateTime
+}
+
+type Usuario{
+    id:ID,#Se envia por que en mongoose crea un id por defecto
+    cNombre: String!,
+    cContrasenia: String!,
+    iTipoUsuario: Int!,
+    img:String,
+    dtFechaCreacion:DateTime
+}
