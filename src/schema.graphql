@@ -14,7 +14,7 @@ type Mutation{
     createUsuario(data:inputUsuario!):Usuario,
     createEmpresa(data:inputEmpresa!):Empresa,
     login(data:inputlogin!):Token,
-    addPhoto(photo:Upload!):String
+    addPhoto(photo:Upload!, id:ID):String
 }
 
 type Empresa {

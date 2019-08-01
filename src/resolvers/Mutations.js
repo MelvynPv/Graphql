@@ -46,6 +46,8 @@ const addPhoto = async( root,args)=> {
         console.log(`Stream ==> ${stream}`);
         const url = await storage({stream})
         console.log(url);
+        await Usuario.findOneAndUpdate(args.id,{img:url.url})
+        return url.url;
     }   
 };
 
