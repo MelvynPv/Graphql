@@ -11,15 +11,34 @@ const getUsuario = async (root,data) => {
 
     return fintUsu;
 }
+const getEmpresa = async (root,data) => {
+    let fintEmpresa = await Empresa.findById(data.id,(ERR,RES) => {
+        return RES;
+    });
+    if(!fintEmpresa) throw new Error(`No se encontro la empresa con la llave indicada`);
+    let empresa = await Empresa.findById({_id:fintEmpresa._id}).populate("Usuario");
+
+    return empresa;
+}
+
+
 
 const getAllEmpresa= async (root,args)=>{
-    let lstEmpresa = await Empresa.find({cNombre:args.cNombre})
+    let lstEmpresa = await Empresa.find().populate('Usuario');
     return lstEmpresa;
+
+}
+
+const getAllUsuarios= async (root,args)=>{
+    let lstUsuarios = await Usuario.find().exec();
+    return lstUsuarios;
 
 }
 
 module.exports = {
     saludo,
     getUsuario,
-    getAllEmpresa
+    getAllEmpresa,
+    getEmpresa,
+    getAllUsuarios
 }

@@ -1,14 +1,20 @@
+directive @auth on FIELD_DEFINITION | FIELD
 scalar DateTime
+scalar Upload#in docucmentation the graphql
 type Query{
     saludo(name:String!):String,
     getUsuario(cNombre:String!):Usuario,
-    getAllEmpresa(cNombreEmpresa:String!):Empresa
+    getAllEmpresa:[Empresa],
+    getEmpresa(id:String!):Empresa,
+    getAllUsuarios:[Usuario] @auth
 
 }
 
 type Mutation{
     createUsuario(data:inputUsuario!):Usuario,
-    createEmpresa(data:inputEmpresa!):Empresa
+    createEmpresa(data:inputEmpresa!):Empresa,
+    login(data:inputlogin!):Token,
+    addPhoto(photo:Upload!):String
 }
 
 type Empresa {
@@ -41,6 +47,7 @@ input inputUsuario{
     cNombre: String!,
     cContrasenia: String!,
     iTipoUsuario: Int!,
+    cCorreo:String!,
     img:String,
     dtFechaCreacion:DateTime
 }
@@ -50,6 +57,16 @@ type Usuario{
     cNombre: String!,
     cContrasenia: String!,
     iTipoUsuario: Int!,
+    cCorreo:String!,
     img:String,
     dtFechaCreacion:DateTime
+}
+type Token{
+    token:String!,
+    mensaje:String!
+}
+
+input inputlogin{
+    cCorreo:String!,
+    cContrasenia:String!
 }
